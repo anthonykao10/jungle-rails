@@ -42,10 +42,24 @@ RSpec.describe User, type: :model do
     end
 
     it "returns correct user object if credentials are valid" do
-      createdUser = User.create(email: 'credentialTest@gmail.com', name: 'credentialTest', password: 'password', password_confirmation: 'password')
+      createdUser = User.create(email: 'credentialtest@gmail.com', name: 'credentialTest', password: 'password', password_confirmation: 'password')
       expect(createdUser).to be_valid
-      authUser = User.authenticate_with_credentials('credentialTest@gmail.com', 'password')
+      authUser = User.authenticate_with_credentials('credentialtest@gmail.com', 'password')
       expect(authUser).to have_attributes(:name => "credentialTest")
+    end
+
+    it "strips whitespaces from email input" do
+      createdUser = User.create(email: 'test6@gmail.com', name: 'test6', password: 'password', password_confirmation: 'password')
+      expect(createdUser).to be_valid
+      authUser = User.authenticate_with_credentials('  test6@gmail.com  ', 'password')
+      expect(authUser).to have_attributes(:name => "test6")
+    end
+
+    it "is case-insensitive for email input" do
+      createdUser = User.create(email: 'test7@gmail.com', name: 'test7', password: 'password', password_confirmation: 'password')
+      expect(createdUser).to be_valid
+      authUser = User.authenticate_with_credentials('tEsT7@gmail.com', 'password')
+      expect(authUser).to have_attributes(:name => "test7")
     end
   end
 
