@@ -60,10 +60,6 @@ RSpec.describe Product, type: :model do
         price: 1000
       })
       expect(product.errors.full_messages).to include("Name can't be blank")
-      puts "***************************"
-      puts product.inspect
-      puts product.errors.full_messages
-      puts "***************************"
     end
   end
 end
