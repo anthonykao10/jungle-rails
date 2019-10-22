@@ -23,11 +23,14 @@ RSpec.feature "ProductDetails", type: :feature, js: true do
 
     first('.product').click_link('Details')
 
-    # puts page.html
-
-    save_screenshot
-
+    # waits for page content
     expect(page).to have_css '.products-show'
+    
+    # debugging
+    # puts page.html
+    # save_and_open_page
+    # save_screenshot
+
   end
 
 end
